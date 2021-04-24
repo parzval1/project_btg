@@ -1,4 +1,4 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 class UserRepository {
     constructor() {
@@ -6,7 +6,7 @@ class UserRepository {
     }
 
     async create(values) {
-        var token = jwt.sign({ name: values.name, password: values.password }, 'secretkey', { expiresIn: '30m' });
+        const token = jwt.sign({ name: values.name, password: values.password }, 'secretkey', { expiresIn: '30m' });
         this.array_user[token] = values.name;
  
         return token;

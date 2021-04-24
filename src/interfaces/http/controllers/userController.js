@@ -12,7 +12,7 @@ const authUser = (async (req, res) => {
             throw new BadRequest('Parâmetros incompletos: nome ou senha.');
         }
 
-        var result = await authUserCommand({ name, password });
+        const result = await authUserCommand({ name, password });
         if (!!result) {
             res.status(201).send('Usuário inserido com sucesso. Para gerar o documento, utilize no header da chamada user/document o seguinte x-token: ' + result);
         }
@@ -41,19 +41,19 @@ const userDocument = (async (req, res) => {
             throw new BadRequest('Parâmetros incompletos: data, cpf, nome ou rg.');
         }
 
-        var user_token = await findUserCommand(token);
+        const user_token = await findUserCommand(token);
         if (!!user_token) {
             if (Date.now() >= user_token['exp'] * 1000) {
                 throw new BadRequest('O seu token de autenticação expirou, Por favor, efetue a atuenticação novamente.');
             }
 
-            var noblank_user_token_name = user_token['name'].split(" ").join("")
+            const noblank_user_token_name = user_token['name'].split(" ").join("")
 
             if (!fs.existsSync(`src/infra/files/${noblank_user_token_name}`)) {
                 fs.mkdirSync(`src/infra/files/${noblank_user_token_name}`);
             }
 
-            var stream = fs.createWriteStream(`src/infra/files/${noblank_user_token_name}` + '/info.txt');
+            const stream = fs.createWriteStream(`src/infra/files/${noblank_user_token_name}` + '/info.txt');
             stream.once('open', function (fd) {
                 stream.write("Nome Completo: " + name + "\n");
                 stream.write("Data de Nascimento: " + date + "\n");
