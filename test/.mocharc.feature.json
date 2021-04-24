@@ -1,0 +1,10 @@
+{
+    "extension": [
+      "js"
+    ],
+    "spec": "test/feature/**/*.spec.js",
+    "timeout": 10000,
+    "color": true,
+    "ui": "bdd",
+    "reporter": "min"
+  }
